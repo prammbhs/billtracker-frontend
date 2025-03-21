@@ -506,7 +506,7 @@
                         
                         if (executeAction) {
                             // First get AI to categorize the bill
-                            fetch('/classify-bill', {
+                            fetch(`${getApiBaseUrl()}/classify-bill`, {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'
@@ -551,7 +551,7 @@
                             addMessageToChat('bot', `Working on removing "${actionDetails.bill_name}"...`);
                             
                             // Call API to remove bill
-                            fetch(`/bills/by-name`, {
+                            fetch(`${getApiBaseUrl()}/bills/by-name`, {
                                 method: 'DELETE',
                                 headers: {
                                     'Content-Type': 'application/json'
@@ -661,7 +661,7 @@
                 console.log("Sending query to API:", userMessage);
                 
                 // REAL API CALL
-                fetch('/ai-query', {
+                fetch(`${getApiBaseUrl()}/ai-query`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

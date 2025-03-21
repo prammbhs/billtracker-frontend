@@ -1437,7 +1437,7 @@
                             }
                             
                             // After successful delete, create new bill with paid status
-                            return fetch('/bills', {
+                            return fetch(`${getApiBaseUrl()}/bills`, {  // <-- UPDATED LINE HERE
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'

@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="js/config.js"></script>
-    <!-- Add CSS here instead of relying on the external styles.css -->
     <style>
         :root {
             --primary-color: #4361ee;
@@ -118,118 +117,69 @@
             transform: translateY(-3px);
         }
 
-        .custom-card .card-header {
-            background: transparent;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding: 15px 20px;
-            margin: -20px -20px 20px;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .custom-card .card-header h5 {
-            margin: 0;
-            font-weight: 600;
-        }
-
-        .card-header .header-icon {
-            margin-right: 15px;
-            color: var(--primary-color);
-            font-size: 1.2rem;
-        }
-
         /* Form Styles */
         .form-group label {
             font-weight: 500;
             color: var(--dark-color);
             margin-bottom: 8px;
-            display: block;
         }
 
         .form-control {
-            border-radius: 10px;
-            padding: 12px 15px;
+            border-radius: 8px;
+            padding: 10px 15px;
             border: 1px solid #ddd;
-            transition: all 0.2s;
+            transition: all 0.3s;
         }
 
         .form-control:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+            box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
         }
 
         .btn-primary {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
-            border-radius: 10px;
-            padding: 12px 25px;
-            font-weight: 500;
-            transition: all 0.2s;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
         }
 
         .btn-primary:hover {
             background-color: var(--primary-dark);
             border-color: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.2);
         }
 
-        .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-            border-radius: 10px;
-            padding: 12px 25px;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .btn-outline-primary:hover {
-            background-color: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.2);
-        }
-
-        .btn-outline-secondary {
-            color: #6c757d;
-            border-color: #6c757d;
-            border-radius: 10px;
-            padding: 12px 25px;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .btn-outline-secondary:hover {
-            background-color: #6c757d;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(108, 117, 125, 0.2);
-        }
-
-        /* Custom Switch Styling */
-        .custom-control-input:checked ~ .custom-control-label::before {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .custom-switch .custom-control-label::before {
-            border-radius: 20px;
-            height: 20px;
-        }
-
-        .custom-control-label {
-            font-weight: 500;
+        /* Category Badges */
+        .category-selector {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
         }
 
-        /* Reminder Card Styling */
-        #reminderOptions .card {
-            border-radius: 10px;
-            border: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        .category-badge {
+            background-color: #f0f2f5;
+            color: #666;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .category-badge:hover {
+            background-color: #e1e5eb;
+        }
+
+        .category-badge.selected {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Recurring Options */
+        .recurring-options {
+            margin-top: 15px;
         }
 
         /* Theme Switch Button */
@@ -264,23 +214,31 @@
 
         .dark-mode .custom-card {
             background-color: #1e1e1e;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        }
-
-        .dark-mode .form-control {
-            background-color: #2a2a2a;
-            border-color: #333;
             color: #f5f5f5;
         }
 
-        .dark-mode .page-title,
+        .dark-mode .page-title {
+            color: #f5f5f5;
+            border-bottom-color: #333;
+        }
+
         .dark-mode .form-group label {
             color: #f5f5f5;
         }
 
-        .dark-mode .page-title,
-        .dark-mode .custom-card .card-header {
-            border-bottom-color: #333;
+        .dark-mode .form-control {
+            background-color: #333;
+            border-color: #444;
+            color: #f5f5f5;
+        }
+
+        .dark-mode .category-badge {
+            background-color: #333;
+            color: #ccc;
+        }
+
+        .dark-mode .category-badge:hover {
+            background-color: #444;
         }
 
         .dark-mode .theme-switch {
@@ -288,8 +246,8 @@
             color: var(--dark-color);
         }
 
-        .dark-mode #reminderOptions .card {
-            background-color: #2a2a2a;
+        .dark-mode .text-muted {
+            color: #aaa !important;
         }
 
         /* Media Queries for Responsive Design */
@@ -383,49 +341,6 @@
             .page-title h2 {
                 font-size: 1.5rem;
             }
-            
-            .d-flex.justify-content-between {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .d-flex.justify-content-between button {
-                width: 100%;
-            }
-            
-            .d-flex.justify-content-between div {
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-                gap: 10px;
-            }
-            
-            .d-flex.justify-content-between div button {
-                margin-right: 0 !important;
-            }
-        }
-
-        /* Add to your existing CSS in <style> tag */
-        .category-indicator {
-            display: inline-block;
-            margin-left: 10px;
-            animation: fadeIn 0.5s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Pulse animation for the AI suggestion */
-        .ai-suggestion-pulse {
-            animation: pulse 1.5s;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(67, 97, 238, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0); }
         }
     </style>
 </head>
@@ -435,20 +350,20 @@
         <i class="fas fa-moon"></i>
     </div>
 
-    <!-- Sidebar Navigation - same as index.html but with this page's link active -->
+    <!-- Sidebar Navigation -->
     <nav class="sidebar">
         <div class="logo-container">
             <h4><i class="fas fa-receipt mr-2"></i> BillTracker</h4>
         </div>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a href="index.html" class="nav-link active">
+                <a href="index.html" class="nav-link">
                     <i class="fas fa-chart-pie"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="add-bill.html" class="nav-link">
+                <a href="add-bill.html" class="nav-link active">
                     <i class="fas fa-plus-circle"></i>
                     <span>Add Bill</span>
                 </a>
@@ -488,195 +403,207 @@
 
     <!-- Main Content Area -->
     <main class="main-content">
-        <!-- Add Bill Section -->
-        <section id="addBill" class="content-section">
-            <div class="page-title">
-                <h2>Add New Bill</h2>
-                <p class="text-muted">Add a new bill to keep track of your expenses</p>
-            </div>
-            
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <div class="custom-card">
-                        <div class="card-header">
-                            <i class="fas fa-plus-circle header-icon"></i>
-                            <h5>Bill Details</h5>
+        <div class="page-title">
+            <h2>Add New Bill</h2>
+            <p class="text-muted">Create a new bill to track and manage</p>
+        </div>
+        
+        <div class="custom-card">
+            <form id="addBillForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="billName">Bill Name</label>
+                            <input type="text" class="form-control" id="billName" placeholder="e.g. Electricity, Rent, Netflix" required>
                         </div>
-                        <div class="card-body">
-                            <form id="addBillForm">
-                                <!-- Bill Name -->
-                                <div class="form-group">
-                                    <label for="billName">
-                                        <i class="fas fa-file-invoice mr-2"></i>Bill Name
-                                    </label>
-                                    <input type="text" class="form-control" id="billName" placeholder="e.g. Netflix, Electricity, Rent" required>
-                                    <small class="form-text text-muted">Enter a descriptive name for the bill</small>
-                                </div>
-                                
-                                <!-- Amount & Category in a row -->
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="amount">
-                                                <i class="fas fa-dollar-sign mr-2"></i>Amount
-                                            </label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">$</span>
-                                                </div>
-                                                <input type="number" class="form-control" id="amount" placeholder="0.00" step="0.01" min="0" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="category">
-                                                <i class="fas fa-tag mr-2"></i>Category
-                                            </label>
-                                            <select class="form-control" id="category" required>
-                                                <option value="" disabled selected>Select category</option>
-                                                <option value="Utilities">Utilities</option>
-                                                <option value="Entertainment">Entertainment</option>
-                                                <option value="Subscriptions">Subscriptions</option>
-                                                <option value="Insurance">Insurance</option>
-                                                <option value="Rent">Rent & Housing</option>
-                                                <option value="Transportation">Transportation</option>
-                                                <option value="Food">Food & Dining</option>
-                                                <option value="Other">Other</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Due Date & Recurrence -->
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dueDate">
-                                                <i class="fas fa-calendar-day mr-2"></i>Due Date
-                                            </label>
-                                            <input type="date" class="form-control" id="dueDate" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="recurrence">
-                                                <i class="fas fa-sync mr-2"></i>Recurrence
-                                            </label>
-                                            <select class="form-control" id="recurrence">
-                                                <option value="once">One-time</option>
-                                                <option value="monthly">Monthly</option>
-                                                <option value="quarterly">Quarterly</option>
-                                                <option value="yearly">Yearly</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Reminder Options -->
-                                <div class="form-group">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="enableReminder">
-                                        <label class="custom-control-label" for="enableReminder">
-                                            <i class="fas fa-bell mr-2"></i>Set Reminder
-                                        </label>
-                                    </div>
-                                </div>
-                                
-                                <!-- Reminder Options (initially hidden) -->
-                                <div id="reminderOptions" style="display: none;">
-                                    <div class="card bg-light mb-3">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="reminderDays">Remind me</label>
-                                                        <select class="form-control" id="reminderDays">
-                                                            <option value="1">1 day before</option>
-                                                            <option value="3" selected>3 days before</option>
-                                                            <option value="5">5 days before</option>
-                                                            <option value="7">1 week before</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="email">Email for notifications</label>
-                                                        <input type="email" class="form-control" id="email" placeholder="your@email.com">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Additional Notes -->
-                                <div class="form-group">
-                                    <label for="notes">
-                                        <i class="fas fa-sticky-note mr-2"></i>Notes (Optional)
-                                    </label>
-                                    <textarea class="form-control" id="notes" rows="2" placeholder="Add any additional information about this bill"></textarea>
-                                </div>
-                                
-                                <!-- Submit Buttons -->
-                                <div class="d-flex justify-content-between mt-4">
-                                    <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='index.html'">
-                                        <i class="fas fa-arrow-left mr-2"></i>Cancel
-                                    </button>
-                                    <div>
-                                        <button type="button" class="btn btn-outline-primary mr-2" id="saveDraftBtn">
-                                            <i class="fas fa-save mr-2"></i>Save Draft
-                                        </button>
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fas fa-plus-circle mr-2"></i>Add Bill
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="billAmount">Amount ($)</label>
+                            <input type="number" step="0.01" class="form-control" id="billAmount" placeholder="0.00" required>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="dueDate">Due Date</label>
+                            <input type="date" class="form-control" id="dueDate" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <div class="category-selector" id="categorySelector">
+                                <div class="category-badge" data-category="Utilities">Utilities</div>
+                                <div class="category-badge" data-category="Entertainment">Entertainment</div>
+                                <div class="category-badge" data-category="Subscriptions">Subscriptions</div>
+                                <div class="category-badge" data-category="Insurance">Insurance</div>
+                                <div class="category-badge" data-category="Rent">Rent</div>
+                                <div class="category-badge" data-category="Transportation">Transportation</div>
+                                <div class="category-badge" data-category="Food">Food</div>
+                                <div class="category-badge" data-category="Other">Other</div>
+                            </div>
+                            <input type="hidden" id="category" value="Other">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Notes (Optional)</label>
+                    <textarea class="form-control" id="notes" rows="3" placeholder="Add any additional information about this bill"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="recurringSwitch">
+                        <label class="custom-control-label" for="recurringSwitch">This is a recurring bill</label>
+                    </div>
+                    
+                    <div id="recurringOptions" class="recurring-options" style="display: none;">
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="recurringPeriod">Recurring Period</label>
+                                    <select class="form-control" id="recurringPeriod">
+                                        <option value="monthly">Monthly</option>
+                                        <option value="quarterly">Quarterly</option>
+                                        <option value="yearly">Yearly</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="reminderDays">Reminder (Days Before)</label>
+                                    <select class="form-control" id="reminderDays">
+                                        <option value="1">1 day</option>
+                                        <option value="3" selected>3 days</option>
+                                        <option value="5">5 days</option>
+                                        <option value="7">1 week</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-right mt-4">
+                    <button type="button" class="btn btn-outline-secondary mr-2" id="resetButton">Reset</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus-circle mr-2"></i>Add Bill
+                    </button>
+                </div>
+            </form>
+        </div>
     </main>
 
-    <!-- Your custom JavaScript -->
-    <script src="js/scripts.js"></script>
+    <!-- Required JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/sidebar.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Toggle reminder options when checkbox is clicked
-            const enableReminder = document.getElementById('enableReminder');
-            const reminderOptions = document.getElementById('reminderOptions');
+            // Theme toggling
+            const themeSwitch = document.getElementById('themeSwitch');
+            if (themeSwitch) {
+                themeSwitch.addEventListener('click', function() {
+                    document.body.classList.toggle('dark-mode');
+                    const isDarkMode = document.body.classList.contains('dark-mode');
+                    localStorage.setItem('darkMode', isDarkMode);
+                    
+                    const icon = themeSwitch.querySelector('i');
+                    if (isDarkMode) {
+                        icon.className = 'fas fa-sun';
+                    } else {
+                        icon.className = 'fas fa-moon';
+                    }
+                });
+
+                // Restore dark mode preference
+                if (localStorage.getItem('darkMode') === 'true') {
+                    document.body.classList.add('dark-mode');
+                    const icon = themeSwitch.querySelector('i');
+                    if (icon) {
+                        icon.className = 'fas fa-sun';
+                    }
+                }
+            }
             
-            enableReminder.addEventListener('change', function() {
-                reminderOptions.style.display = this.checked ? 'block' : 'none';
+            // Set today's date as default
+            const today = new Date();
+            const formattedDate = today.toISOString().substr(0, 10);
+            document.getElementById('dueDate').value = formattedDate;
+            
+            // Category selection
+            const categoryBadges = document.querySelectorAll('.category-badge');
+            categoryBadges.forEach(badge => {
+                badge.addEventListener('click', function() {
+                    // Remove selected class from all badges
+                    categoryBadges.forEach(b => b.classList.remove('selected'));
+                    
+                    // Add selected class to clicked badge
+                    this.classList.add('selected');
+                    
+                    // Update hidden input value
+                    document.getElementById('category').value = this.getAttribute('data-category');
+                });
+            });
+            
+            // Toggle recurring options
+            const recurringSwitch = document.getElementById('recurringSwitch');
+            recurringSwitch.addEventListener('change', function() {
+                const recurringOptions = document.getElementById('recurringOptions');
+                recurringOptions.style.display = this.checked ? 'block' : 'none';
+            });
+            
+            // Reset form button
+            document.getElementById('resetButton').addEventListener('click', function() {
+                document.getElementById('addBillForm').reset();
+                document.getElementById('dueDate').value = formattedDate;
+                
+                // Remove selected class from all category badges
+                categoryBadges.forEach(b => b.classList.remove('selected'));
+                
+                // Reset category to Other
+                document.getElementById('category').value = 'Other';
+                
+                // Hide recurring options
+                document.getElementById('recurringOptions').style.display = 'none';
             });
             
             // Form submission
-            const addBillForm = document.getElementById('addBillForm');
-            
-            addBillForm.addEventListener('submit', function(e) {
+            document.getElementById('addBillForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
                 // Get form values
+                const billName = document.getElementById('billName').value;
+                const billAmount = document.getElementById('billAmount').value;
+                const dueDate = document.getElementById('dueDate').value;
+                const category = document.getElementById('category').value;
+                const notes = document.getElementById('notes').value;
+                const isRecurring = document.getElementById('recurringSwitch').checked;
+                
+                // Prepare data object
                 const billData = {
-                    bill_name: document.getElementById('billName').value,
-                    amount: parseFloat(document.getElementById('amount').value),
-                    due_date: document.getElementById('dueDate').value,
-                    category: document.getElementById('category').value || 'Other', // Ensure category is always present
-                    recurrence: document.getElementById('recurrence').value,
-                    notes: document.getElementById('notes').value
+                    bill_name: billName,
+                    amount: parseFloat(billAmount),
+                    due_date: dueDate,
+                    category: category,
+                    notes: notes,
+                    is_recurring: isRecurring
                 };
                 
-                // Add reminder data if enabled
-                if (enableReminder.checked) {
-                    billData.reminder = {
-                        days_before: parseInt(document.getElementById('reminderDays').value),
-                        email: document.getElementById('email').value
-                    };
+                // Add recurring details if applicable
+                if (isRecurring) {
+                    billData.recurring_period = document.getElementById('recurringPeriod').value;
+                    billData.reminder_days = parseInt(document.getElementById('reminderDays').value);
                 }
                 
-                // Send data to server
+                // Submit to API
                 fetch(`${getApiBaseUrl()}/bills`, {
                     method: 'POST',
                     headers: {
@@ -684,149 +611,26 @@
                     },
                     body: JSON.stringify(billData)
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        // Show success message
-                        alert('Bill added successfully!');
-                        // Redirect to dashboard
-                        window.location.href = 'index.html';
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
                     }
+                    return response.json();
+                })
+                .then(data => {
+                    // Show success message
+                    alert('Bill added successfully!');
+                    
+                    // Reset form
+                    document.getElementById('resetButton').click();
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error adding bill. Please try again.');
+                    console.error('Error adding bill:', error);
+                    alert('Failed to add bill. Please try again.');
                 });
-            });
-            
-            // Save draft functionality
-            document.getElementById('saveDraftBtn').addEventListener('click', function() {
-                const formData = {
-                    bill_name: document.getElementById('billName').value || 'Untitled Bill',
-                    amount: document.getElementById('amount').value || 0,
-                    due_date: document.getElementById('dueDate').value || '',
-                    category: document.getElementById('category').value || 'Other',
-                    notes: document.getElementById('notes').value || ''
-                };
-                
-                // Save to localStorage
-                const drafts = JSON.parse(localStorage.getItem('billDrafts') || '[]');
-                drafts.push({
-                    ...formData,
-                    draft_date: new Date().toISOString()
-                });
-                localStorage.setItem('billDrafts', JSON.stringify(drafts));
-                
-                alert('Draft saved successfully!');
             });
         });
     </script>
-    <script>
-        // Theme toggling
-        const themeSwitch = document.getElementById('themeSwitch');
-        if (themeSwitch) {
-            themeSwitch.addEventListener('click', function() {
-                document.body.classList.toggle('dark-mode');
-                const isDarkMode = document.body.classList.contains('dark-mode');
-                localStorage.setItem('darkMode', isDarkMode);
-                
-                const icon = themeSwitch.querySelector('i');
-                if (isDarkMode) {
-                    icon.className = 'fas fa-sun';
-                } else {
-                    icon.className = 'fas fa-moon';
-                }
-            });
-
-            // Restore dark mode preference
-            if (localStorage.getItem('darkMode') === 'true') {
-                document.body.classList.add('dark-mode');
-                const icon = themeSwitch.querySelector('i');
-                if (icon) {
-                    icon.className = 'fas fa-sun';
-                }
-            }
-        }
-    </script>
-    <script>
-    // Auto-categorization functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        const billNameInput = document.getElementById('billName');
-        const categorySelect = document.getElementById('category');
-        let typingTimer;
-        const doneTypingInterval = 1000; // Wait 1 second after user stops typing
-        
-        // Add a small indicator next to the category dropdown
-        const categoryGroup = categorySelect.closest('.form-group');
-        const categoryIndicator = document.createElement('div');
-        categoryIndicator.className = 'category-indicator ml-2';
-        categoryIndicator.style.display = 'none';
-        categoryIndicator.innerHTML = '<small class="text-muted"><i class="fas fa-magic"></i> AI suggested</small>';
-        categoryGroup.querySelector('label').appendChild(categoryIndicator);
-        
-        // Add event listener for the bill name input
-        billNameInput.addEventListener('keyup', function() {
-            clearTimeout(typingTimer);
-            
-            if (billNameInput.value.trim().length > 2) { // Only trigger if more than 2 chars
-                typingTimer = setTimeout(classifyBill, doneTypingInterval);
-            }
-        });
-        
-        function classifyBill() {
-            const billName = billNameInput.value.trim();
-            if (billName.length < 3) return;
-            
-            // Show loading indicator in the category dropdown
-            categorySelect.disabled = true;
-            
-            // Get current selected option to restore if user already chose one
-            const currentSelection = categorySelect.value;
-            
-            // Only proceed with AI categorization if user hasn't selected a category yet
-            if (!currentSelection || currentSelection === "") {
-                fetch(`${getApiBaseUrl()}/classify-bill`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ bill_name: billName })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.category) {
-                        // Set the category dropdown to the suggested value
-                        for (let i = 0; i < categorySelect.options.length; i++) {
-                            if (categorySelect.options[i].value === data.category) {
-                                categorySelect.selectedIndex = i;
-                                
-                                // Show the AI suggested indicator
-                                categoryIndicator.style.display = 'inline-block';
-                                
-                                // Add a subtle highlight effect
-                                categorySelect.style.borderColor = 'var(--primary-color)';
-                                setTimeout(() => {
-                                    categorySelect.style.borderColor = '';
-                                }, 1500);
-                                
-                                break;
-                            }
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.error('Error classifying bill:', error);
-                })
-                .finally(() => {
-                    categorySelect.disabled = false;
-                });
-            } else {
-                // If user already selected a category, just re-enable the dropdown
-                categorySelect.disabled = false;
-            }
-        }
-    });
-</script>
 <script src="js/footer.js"></script>
 </body>
 </html>

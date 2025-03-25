@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="footer-logo">
                 <i class="fas fa-receipt"></i> BillTracker
             </div>
-            <p>&copy; 2023-2024 BillTracker</p>
+            <p>&copy; 2025 BillTracker</p>
             <p>Designed and developed by 
                 <a href="https://www.linkedin.com/in/paramjitpatel" target="_blank" rel="noopener">
                     Paramjit Patel
@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="footer-links">
                 <a href="https://github.com/prammbhs" target="_blank" rel="noopener">
                     <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="https://paramjitpatel.me/" target="_blank" rel="noopener">
+                    <i class="fas fa-user"></i> Portfolio
                 </a>
             </div>
         </div>

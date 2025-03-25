@@ -758,13 +758,19 @@
                     <span>Insights</span>
                 </a>
             </li>
-        </ul>
-    </nav>
-
-    <!-- Main Content Area -->
+        </ul>li class="nav-item">
+    </nav>      <a href="developer.html" class="nav-link">
+                    <i class="fas fa-code"></i>
+    <!-- Main Content Area -->loper</span>
     <main class="main-content">
         <div class="page-title">
             <div>
+                <h2>Bill History</h2>
+                <p class="text-muted">View and manage your bill history</p>
+            </div>ent Area -->
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="form-control search-input" id="searchBills" placeholder="Search bills...">
                 <h2>Bill History</h2>
                 <p class="text-muted">View and manage your bill history</p>
             </div>
@@ -986,41 +992,36 @@
             </div>
         </div>
     </main>
-
+src="js/sidebar.js"></script>
     <!-- Required JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="js/footer.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Theme toggling
-            const themeSwitch = document.getElementById('themeSwitch');
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>ener('DOMContentLoaded', function() {
+            // Theme togglingpopper.min.js"></script>
+            const themeSwitch = document.getElementById('themeSwitch');path.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
             if (themeSwitch) {
                 themeSwitch.addEventListener('click', function() {
                     document.body.classList.toggle('dark-mode');
                     const isDarkMode = document.body.classList.contains('dark-mode');
-                    localStorage.setItem('darkMode', isDarkMode);
+                    localStorage.setItem('darkMode', isDarkMode);emeSwitch = document.getElementById('themeSwitch');
                     
-                    const icon = themeSwitch.querySelector('i');
-                    if (isDarkMode) {
-                        icon.className = 'fas fa-sun';
-                    } else {
+                    const icon = themeSwitch.querySelector('i');istener('click', function() {
+                    if (isDarkMode) {rk-mode');
+                        icon.className = 'fas fa-sun';DarkMode = document.body.classList.contains('dark-mode');
+                    } else {DarkMode);
                         icon.className = 'fas fa-moon';
-                    }
-                });
-
+                    } const icon = themeSwitch.querySelector('i');
+                });                    if (isDarkMode) {
+a-sun';
                 // Restore dark mode preference
                 if (localStorage.getItem('darkMode') === 'true') {
                     document.body.classList.add('dark-mode');
                     const icon = themeSwitch.querySelector('i');
                     if (icon) {
-                        icon.className = 'fas fa-sun';
-                    }
-                }
-            }
+                        icon.className = 'fas fa-sun';store dark mode preference
+                    }f (localStorage.getItem('darkMode') === 'true') {
+                }       document.body.classList.add('dark-mode');
+            }                    const icon = themeSwitch.querySelector('i');
 
-            // Variables for pagination
+            // Variables for paginationssName = 'fas fa-sun';
             let currentPage = 1;
             let billsPerPage = 10;
             let filteredBills = [];
@@ -1029,21 +1030,21 @@
             // Initialize date filters with current month
             const today = new Date();
             const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-            const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+            const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);let allBills = [];
             
             document.getElementById('startDate').valueAsDate = firstDay;
-            document.getElementById('endDate').valueAsDate = lastDay;
-            
+            document.getElementById('endDate').valueAsDate = lastDay;const today = new Date();
+            ar(), today.getMonth(), 1);
             // Bills per page dropdown event listener
             document.getElementById('pageSize').addEventListener('change', function() {
                 billsPerPage = parseInt(this.value);
-                currentPage = 1; // Reset to first page when changing page size
+                currentPage = 1; // Reset to first page when changing page sizeById('endDate').valueAsDate = lastDay;
                 displayBills();
-                updatePagination();
-            });
-            
-            // Fetch all bills
-            fetchBills();
+                updatePagination();Bills per page dropdown event listener
+            });document.getElementById('pageSize').addEventListener('change', function() {
+             parseInt(this.value);
+            // Fetch all billsge = 1; // Reset to first page when changing page size
+            fetchBills();    displayBills();
             
             // Add event listeners for filter controls
             document.getElementById('categoryFilter').addEventListener('change', applyFilters);
@@ -1051,133 +1052,133 @@
             document.getElementById('startDate').addEventListener('change', applyFilters);
             document.getElementById('endDate').addEventListener('change', applyFilters);
             document.getElementById('sortBy').addEventListener('change', applyFilters);
-            document.getElementById('searchBills').addEventListener('input', applyFilters);
-            
-            // Add event listeners for pagination
-            document.getElementById('prevPage').addEventListener('click', function(e) {
-                e.preventDefault();
-                if (currentPage > 1) {
+            document.getElementById('searchBills').addEventListener('input', applyFilters);document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+            ').addEventListener('change', applyFilters);
+            // Add event listeners for paginations);
+            document.getElementById('prevPage').addEventListener('click', function(e) {('endDate').addEventListener('change', applyFilters);
+                e.preventDefault();ortBy').addEventListener('change', applyFilters);
+                if (currentPage > 1) {d('searchBills').addEventListener('input', applyFilters);
                     currentPage--;
-                    displayBills();
-                }
-            });
+                    displayBills();d event listeners for pagination
+                }ument.getElementById('prevPage').addEventListener('click', function(e) {
+            });    e.preventDefault();
             
             document.getElementById('nextPage').addEventListener('click', function(e) {
                 e.preventDefault();
                 const totalPages = Math.ceil(filteredBills.length / billsPerPage);
                 if (currentPage < totalPages) {
                     currentPage++;
-                    displayBills();
-                }
-            });
-            
+                    displayBills();ent.getElementById('nextPage').addEventListener('click', function(e) {
+                } e.preventDefault();
+            });    const totalPages = Math.ceil(filteredBills.length / billsPerPage);
+            es) {
             // Export button functionality
-            document.getElementById('exportData').addEventListener('click', exportBillsToCSV);
+            document.getElementById('exportData').addEventListener('click', exportBillsToCSV);        displayBills();
             
             // Function to fetch bills from the server
             function fetchBills() {
                 // Show loading indicator
-                document.getElementById('billTableBody').innerHTML = `
+                document.getElementById('billTableBody').innerHTML = `ElementById('exportData').addEventListener('click', exportBillsToCSV);
                     <tr>
                         <td colspan="6" class="text-center py-5">
                             <div class="spinner-border text-primary" role="status">
-                                <span class="sr-only">Loading...</span>
+                                <span class="sr-only">Loading...</span>dicator
                             </div>
                             <p class="mt-3 text-muted">Loading bill history...</p>
-                        </td>
-                    </tr>
-                `;
+                        </td>td colspan="6" class="text-center py-5">
+                    </tr>          <div class="spinner-border text-primary" role="status">
+                `;                <span class="sr-only">Loading...</span>
                 
-                // Use setTimeout to prevent UI blocking during complex operations
+                // Use setTimeout to prevent UI blocking during complex operationsss="mt-3 text-muted">Loading bill history...</p>
                 setTimeout(() => {
                     fetch(`${getApiBaseUrl()}/bills`)
                         .then(response => {
                             if (!response.ok) {
-                                throw new Error(`HTTP error! Status: ${response.status}`);
+                                throw new Error(`HTTP error! Status: ${response.status}`);eout to prevent UI blocking during complex operations
                             }
-                            return response.json();
-                        })
+                            return response.json();`${getApiBaseUrl()}/bills`)
+                        })> {
                         .then(bills => {
-                            console.log('Bills fetched:', bills);
+                            console.log('Bills fetched:', bills);    throw new Error(`HTTP error! Status: ${response.status}`);
                             
                             if (!Array.isArray(bills)) {
                                 console.error('Expected array of bills but got:', typeof bills);
-                                throw new Error('Invalid data format received from server');
-                            }
+                                throw new Error('Invalid data format received from server');(bills => {
+                            }console.log('Bills fetched:', bills);
                             
                             // Process bill data (same logic, ensuring all fields exist)
-                            allBills = bills.map(bill => {
-                                // ...existing bill processing code...
+                            allBills = bills.map(bill => { but got:', typeof bills);
+                                // ...existing bill processing code...ror('Invalid data format received from server');
                                 let dueDate;
                                 try {
-                                    dueDate = bill.due_date ? new Date(bill.due_date) : new Date();
+                                    dueDate = bill.due_date ? new Date(bill.due_date) : new Date();ing all fields exist)
                                     if (isNaN(dueDate.getTime())) {
-                                        console.warn(`Invalid date for bill '${bill.bill_name}', using current date instead`);
-                                        dueDate = new Date();
+                                        console.warn(`Invalid date for bill '${bill.bill_name}', using current date instead`);g code...
+                                        dueDate = new Date();ueDate;
                                     }
-                                } catch (e) {
-                                    console.error('Error parsing date:', e);
-                                    dueDate = new Date();
-                                }
+                                } catch (e) {due_date) : new Date();
+                                    console.error('Error parsing date:', e);Time())) {
+                                    dueDate = new Date();       console.warn(`Invalid date for bill '${bill.bill_name}', using current date instead`);
+                                }        dueDate = new Date();
                                 
-                                const today = new Date();
-                                
-                                // Calculate bill status
+                                const today = new Date();} catch (e) {
+                                 parsing date:', e);
+                                // Calculate bill status);
                                 let status = 'pending';
                                 if (dueDate < today) {
-                                    status = 'overdue';
+                                    status = 'overdue';);
                                 } else if (bill.paid) {
-                                    status = 'paid';
-                                }
-                                
+                                    status = 'paid';/ Calculate bill status
+                                }let status = 'pending';
+                                ate < today) {
                                 return {
                                     id: bill.id || `temp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
                                     bill_name: bill.bill_name || 'Unnamed Bill',
                                     amount: bill.amount || 0,
                                     due_date: dueDate.toISOString(),
                                     category: bill.category || 'Other',
-                                    notes: bill.notes || '',
-                                    paid: !!bill.paid,
+                                    notes: bill.notes || '',mp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+                                    paid: !!bill.paid,.bill_name || 'Unnamed Bill',
                                     status: status,
-                                    payments: Array.isArray(bill.payments) ? bill.payments : []
-                                };
-                            });
+                                    payments: Array.isArray(bill.payments) ? bill.payments : []  due_date: dueDate.toISOString(),
+                                };     category: bill.category || 'Other',
+                            });        notes: bill.notes || '',
                             
-                            console.log('Processed bills:', allBills.length);
-                            
+                            console.log('Processed bills:', allBills.length);        status: status,
+                            l.payments : []
                             // Set wider date range to show all bills by default
                             const startDateEl = document.getElementById('startDate');
                             const endDateEl = document.getElementById('endDate');
                             
                             // Set a really wide date range to ensure all bills show up
                             const fiveYearsAgo = new Date();
-                            fiveYearsAgo.setFullYear(fiveYearsAgo.getFullYear() - 5);
-                            
+                            fiveYearsAgo.setFullYear(fiveYearsAgo.getFullYear() - 5);const startDateEl = document.getElementById('startDate');
+                            tById('endDate');
                             const fiveYearsFromNow = new Date();
-                            fiveYearsFromNow.setFullYear(fiveYearsFromNow.getFullYear() + 5);
+                            fiveYearsFromNow.setFullYear(fiveYearsFromNow.getFullYear() + 5);// Set a really wide date range to ensure all bills show up
                             
-                            startDateEl.valueAsDate = fiveYearsAgo;
+                            startDateEl.valueAsDate = fiveYearsAgo;FullYear() - 5);
                             endDateEl.valueAsDate = fiveYearsFromNow;
-                            
-                            // Apply initial filters
-                            applyFilters();
-                        })
+                             new Date();
+                            // Apply initial filtersw.setFullYear(fiveYearsFromNow.getFullYear() + 5);
+                            applyFilters();  
+                        })alueAsDate = fiveYearsAgo;
                         .catch(error => {
                             console.error('Error fetching bills:', error);
-                            document.getElementById('billTableBody').innerHTML = `
+                            document.getElementById('billTableBody').innerHTML = ` initial filters
                                 <tr>
                                     <td colspan="6" class="text-center py-5">
                                         <i class="fas fa-exclamation-circle fa-2x text-danger mb-3"></i>
                                         <p>Failed to load bills: ${error.message}</p>
                                         <button class="btn btn-outline-primary btn-sm mt-2" onclick="fetchBills()">
                                             <i class="fas fa-sync-alt mr-2"></i>Retry
-                                        </button>
-                                    </td>
-                                </tr>
-                            `;
-                        });
-                }, 100);
-            }
+                                        </button>olspan="6" class="text-center py-5">
+                                    </td>   <i class="fas fa-exclamation-circle fa-2x text-danger mb-3"></i>
+                                </tr>          <p>Failed to load bills: ${error.message}</p>
+                            `;             <button class="btn btn-outline-primary btn-sm mt-2" onclick="fetchBills()">
+                        });                    <i class="fas fa-sync-alt mr-2"></i>Retry
+                }, 100);                           </button>
+            }                                    </td>
 
             // Enhanced applyFilters function with better debugging
             function applyFilters() {
@@ -1186,41 +1187,41 @@
                 const startDate = new Date(document.getElementById('startDate').value);
                 const endDate = new Date(document.getElementById('endDate').value);
                 const sortBy = document.getElementById('sortBy').value;
-                const searchQuery = document.getElementById('searchBills').value.toLowerCase();
-                
-                // Set end date to end of day
-                endDate.setHours(23, 59, 59, 999);
-                
-                console.log('Applying filters:');
+                const searchQuery = document.getElementById('searchBills').value.toLowerCase();const categoryFilter = document.getElementById('categoryFilter').value;
+                .getElementById('statusFilter').value;
+                // Set end date to end of dayt.getElementById('startDate').value);
+                endDate.setHours(23, 59, 59, 999);const endDate = new Date(document.getElementById('endDate').value);
+                tById('sortBy').value;
+                console.log('Applying filters:');('searchBills').value.toLowerCase();
                 console.log('- Category:', categoryFilter);
                 console.log('- Status:', statusFilter);
                 console.log('- Date range:', startDate.toDateString(), 'to', endDate.toDateString());
                 console.log('- Search:', searchQuery);
                 
-                // Track exclusions by filter type
-                let categoryExcluded = 0;
-                let statusExcluded = 0;
-                let dateExcluded = 0;
+                // Track exclusions by filter type, categoryFilter);
+                let categoryExcluded = 0;, statusFilter);
+                let statusExcluded = 0;ange:', startDate.toDateString(), 'to', endDate.toDateString());
+                let dateExcluded = 0;, searchQuery);
                 let searchExcluded = 0;
-                
+                ions by filter type
                 // Filter bills
                 filteredBills = allBills.filter(bill => {
-                    const billDate = new Date(bill.due_date);
+                    const billDate = new Date(bill.due_date);dateExcluded = 0;
                     
                     // Check if bill matches category filter
                     if (categoryFilter !== 'all' && bill.category !== categoryFilter) {
-                        categoryExcluded++;
-                        return false;
+                        categoryExcluded++;lls.filter(bill => {
+                        return false;onst billDate = new Date(bill.due_date);
                     }
-                    
-                    // Check if bill matches status filter
-                    if (statusFilter !== 'all' && bill.status !== statusFilter) {
+                    er
+                    // Check if bill matches status filterter) {
+                    if (statusFilter !== 'all' && bill.status !== statusFilter) {+;
                         statusExcluded++;
                         return false;
                     }
-                    
-                    // Check if bill is within date range
-                    if (billDate < startDate || billDate > endDate) {
+                    r
+                    // Check if bill is within date rangetusFilter) {
+                    if (billDate < startDate || billDate > endDate) {+;
                         dateExcluded++;
                         return false;
                     }
@@ -1230,9 +1231,9 @@
                         searchExcluded++;
                         return false;
                     }
-                    
-                    return true;
-                });
+                    bill matches search query
+                    return true; if (searchQuery && !bill.bill_name.toLowerCase().includes(searchQuery)) {
+                });        searchExcluded++;
                 
                 // Log filter results
                 console.log('Filter results:');
@@ -1241,112 +1242,112 @@
                 console.log('- Excluded by status:', statusExcluded);
                 console.log('- Excluded by date:', dateExcluded);
                 console.log('- Excluded by search:', searchExcluded);
-                console.log('- Bills after filtering:', filteredBills.length);
-                
-                // Sort bills (existing code)
-                switch (sortBy) {
+                console.log('- Bills after filtering:', filteredBills.length);console.log('- Total bills:', allBills.length);
+                tegory:', categoryExcluded);
+                // Sort bills (existing code)cluded by status:', statusExcluded);
+                switch (sortBy) {ed by date:', dateExcluded);
                     case 'date-desc':
-                        filteredBills.sort((a, b) => new Date(b.due_date) - new Date(a.due_date));
+                        filteredBills.sort((a, b) => new Date(b.due_date) - new Date(a.due_date)); Bills after filtering:', filteredBills.length);
                         break;
                     case 'date-asc':
-                        filteredBills.sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
+                        filteredBills.sort((a, b) => new Date(a.due_date) - new Date(b.due_date));) {
                         break;
                     case 'amount-desc':
                         filteredBills.sort((a, b) => parseFloat(b.amount) - parseFloat(a.amount));
                         break;
                     case 'amount-asc':
                         filteredBills.sort((a, b) => parseFloat(a.amount) - parseFloat(b.amount));
-                        break;
-                    case 'name-asc':
+                        break;c':
+                    case 'name-asc':nt));
                         filteredBills.sort((a, b) => a.bill_name.localeCompare(b.bill_name));
-                        break;
-                    case 'name-desc':
+                        break;:
+                    case 'name-desc':nt));
                         filteredBills.sort((a, b) => b.bill_name.localeCompare(a.bill_name));
-                        break;
-                }
+                        break;   case 'name-asc':
+                }        filteredBills.sort((a, b) => a.bill_name.localeCompare(b.bill_name));
                 
-                // Reset to first page when filters change
-                currentPage = 1;
+                // Reset to first page when filters changeesc':
+                currentPage = 1;        filteredBills.sort((a, b) => b.bill_name.localeCompare(a.bill_name));
                 
                 // Display filtered bills
                 displayBills();
-                
+                ge when filters change
                 // Update pagination
-                updatePagination();
-            }
+                updatePagination();   
+            }                // Display filtered bills
 
             // Modified displayBills function to include "Mark as Paid" button
             function displayBills() {
-                const billTableBody = document.getElementById('billTableBody');
+                const billTableBody = document.getElementById('billTableBody');updatePagination();
                 
                 // Validate filtered bills array
                 if (!Array.isArray(filteredBills)) {
                     console.error('filteredBills is not an array:', filteredBills);
-                    billTableBody.innerHTML = `
+                    billTableBody.innerHTML = `bleBody = document.getElementById('billTableBody');
                         <tr>
                             <td colspan="6" class="text-center py-5">
                                 <i class="fas fa-exclamation-triangle text-warning mb-3" style="font-size: 2rem;"></i>
                                 <p>There was a problem with the bill data. Please try refreshing the page.</p>
                                 <button class="btn btn-primary btn-sm mt-2" onclick="location.reload()">
                                     <i class="fas fa-redo mr-2"></i>Refresh Page
-                                </button>
-                            </td>
-                        </tr>
-                    `;
-                    return;
-                }
+                                </button>olspan="6" class="text-center py-5">
+                            </td>   <i class="fas fa-exclamation-triangle text-warning mb-3" style="font-size: 2rem;"></i>
+                        </tr>          <p>There was a problem with the bill data. Please try refreshing the page.</p>
+                    `;     <button class="btn btn-primary btn-sm mt-2" onclick="location.reload()">
+                    return;                   <i class="fas fa-redo mr-2"></i>Refresh Page
+                }                </button>
                 
                 // Calculate start and end indices for current page
                 const startIndex = (currentPage - 1) * billsPerPage;
-                const endIndex = Math.min(startIndex + billsPerPage, filteredBills.length);
+                const endIndex = Math.min(startIndex + billsPerPage, filteredBills.length);    return;
                 
                 // Update page info
                 document.getElementById('startCount').textContent = filteredBills.length > 0 ? startIndex + 1 : 0;
                 document.getElementById('endCount').textContent = endIndex;
-                document.getElementById('totalCount').textContent = filteredBills.length;
+                document.getElementById('totalCount').textContent = filteredBills.length;const endIndex = Math.min(startIndex + billsPerPage, filteredBills.length);
                 
                 // Clear table body
-                billTableBody.innerHTML = '';
-                
-                // Check if there are no bills
+                billTableBody.innerHTML = '';document.getElementById('startCount').textContent = filteredBills.length > 0 ? startIndex + 1 : 0;
+                unt').textContent = endIndex;
+                // Check if there are no billsnt').textContent = filteredBills.length;
                 if (filteredBills.length === 0) {
-                    billTableBody.innerHTML = `
-                        <tr>
+                    billTableBody.innerHTML = `le body
+                        <tr>;
                             <td colspan="6">
                                 <div class="no-bills-container">
                                     <i class="fas fa-search no-bills-icon"></i>
                                     <p class="no-bills-message">No bills found matching your filters</p>
                                     <button class="btn btn-outline-primary btn-sm" onclick="resetFilters()">
                                         <i class="fas fa-filter mr-2"></i>Reset Filters
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    `;
-                    return;
-                }
+                                    </button>lass="no-bills-container">
+                                </div>   <i class="fas fa-search no-bills-icon"></i>
+                            </td>       <p class="no-bills-message">No bills found matching your filters</p>
+                        </tr>              <button class="btn btn-outline-primary btn-sm" onclick="resetFilters()">
+                    `;             <i class="fas fa-filter mr-2"></i>Reset Filters
+                    return;                   </button>
+                }                </div>
                 
                 // Add rows for current page
-                const currentPageBills = filteredBills.slice(startIndex, endIndex);
+                const currentPageBills = filteredBills.slice(startIndex, endIndex);    `;
                 
                 currentPageBills.forEach(bill => {
                     const row = document.createElement('tr');
-                    
-                    // Format due date
+                    t page
+                    // Format due date(startIndex, endIndex);
                     const dueDate = new Date(bill.due_date);
-                    const formattedDate = dueDate.toLocaleDateString('en-US', { 
-                        year: 'numeric', 
+                    const formattedDate = dueDate.toLocaleDateString('en-US', { bill => {
+                        year: 'numeric', .createElement('tr');
                         month: 'short', 
-                        day: 'numeric' 
-                    });
-                    
+                        day: 'numeric' Format due date
+                    });const dueDate = new Date(bill.due_date);
+                    dueDate.toLocaleDateString('en-US', { 
                     // Create status badge
-                    const statusClass = {
+                    const statusClass = { 
                         'paid': 'paid',
                         'pending': 'pending',
                         'overdue': 'overdue'
-                    }[bill.status];
-                    
+                    }[bill.status];// Create status badge
+                    {
                     const statusText = {
                         'paid': 'Paid',
                         'pending': 'Pending',
@@ -1358,180 +1359,180 @@
                         `<button class="action-btn mark-paid-btn" data-id="${bill.id}" title="Mark as Paid">
                             <i class="fas fa-check"></i>
                         </button>` : '';
-                    
-                    row.innerHTML = `
-                        <td>
-                            <div class="bill-name">
-                                ${bill.bill_name}
+                    aid" button for pending/overdue bills
+                    row.innerHTML = `rkAsPaidButton = bill.status !== 'paid' ? 
+                        <td>mark-paid-btn" data-id="${bill.id}" title="Mark as Paid">
+                            <div class="bill-name">k"></i>
+                                ${bill.bill_name} : '';
                             </div>
-                        </td>
+                        </td>rHTML = `
                         <td>
-                            <span class="category-tag ${bill.category || 'Other'}">${bill.category || 'Other'}</span>
+                            <span class="category-tag ${bill.category || 'Other'}">${bill.category || 'Other'}</span>div class="bill-name">
                         </td>
                         <td class="bill-amount">$${parseFloat(bill.amount).toFixed(2)}</td>
-                        <td class="bill-date">${formattedDate}</td>
+                        <td class="bill-date">${formattedDate}</td>>
                         <td>
-                            <span class="bill-status ${statusClass}">${statusText}</span>
+                            <span class="bill-status ${statusClass}">${statusText}</span>span class="category-tag ${bill.category || 'Other'}">${bill.category || 'Other'}</span>
                         </td>
                         <td class="actions-cell">
-                            <button class="action-btn view-btn" data-id="${bill.id}" title="View Details">
+                            <button class="action-btn view-btn" data-id="${bill.id}" title="View Details">ate}</td>
                                 <i class="fas fa-eye"></i>
-                            </button>
+                            </button>tatus ${statusClass}">${statusText}</span>
                             ${markAsPaidButton}
                             <button class="action-btn delete delete-btn" data-id="${bill.id}" data-name="${bill.bill_name}" title="Delete Bill">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </td>
-                    `;
-                    
-                    billTableBody.appendChild(row);
-                });
+                                <i class="fas fa-trash-alt"></i>lass="action-btn view-btn" data-id="${bill.id}" title="View Details">
+                            </button>   <i class="fas fa-eye"></i>
+                        </td>      </button>
+                    `;        ${markAsPaidButton}
+                    tn delete delete-btn" data-id="${bill.id}" data-name="${bill.bill_name}" title="Delete Bill">
+                    billTableBody.appendChild(row);             <i class="fas fa-trash-alt"></i>
+                });            </button>
                 
                 // Add event listeners for action buttons
-                addActionButtonListeners();
-            }
+                addActionButtonListeners();       
+            }                    billTableBody.appendChild(row);
 
             // Add event listener for "Mark as Paid" functionality
             function addActionButtonListeners() {
-                // ...existing code for view, edit, delete buttons...
+                // ...existing code for view, edit, delete buttons...addActionButtonListeners();
                 
                 // Add handler for "Mark as Paid" button
-                document.querySelectorAll('.mark-paid-btn').forEach(btn => {
+                document.querySelectorAll('.mark-paid-btn').forEach(btn => {lity
                     btn.addEventListener('click', function() {
                         const billId = this.getAttribute('data-id');
                         const billName = filteredBills.find(b => b.id == billId)?.bill_name || 'this bill';
                         
                         // Find the bill in our filtered bills array
-                        const bill = filteredBills.find(b => b.id == billId);
-                        
-                        if (!bill) {
+                        const bill = filteredBills.find(b => b.id == billId);addEventListener('click', function() {
+                         = this.getAttribute('data-id');
+                        if (!bill) {)?.bill_name || 'this bill';
                             alert('Error: Could not find the bill to update.');
-                            return;
-                        }
+                            return;/ Find the bill in our filtered bills array
+                        }const bill = filteredBills.find(b => b.id == billId);
                         
                         // Check if this is a temporary ID (starts with "temp-")
                         if (typeof billId === 'string' && billId.startsWith('temp-')) {
                             alert('This bill was just added and cannot be marked as paid yet. Please refresh the page first.');
                             return;
                         }
-                        
-                        // Confirm with user
-                        if (!confirm(`Mark "${billName}" as paid?`)) {
-                            return; // User canceled
-                        }
+                        a temporary ID (starts with "temp-")
+                        // Confirm with usersWith('temp-')) {
+                        if (!confirm(`Mark "${billName}" as paid?`)) {t added and cannot be marked as paid yet. Please refresh the page first.');
+                            return; // User canceled   return;
+                        }}
                         
                         // Create an updated bill object with paid status
-                        const updatedBill = {
-                            ...bill,
+                        const updatedBill = {(`Mark "${billName}" as paid?`)) {
+                            ...bill, canceled
                             status: 'paid',
                             paid: true
-                        };
+                        };// Create an updated bill object with paid status
                         
                         // Delete existing bill
                         fetch(`${getApiBaseUrl()}/bills?id=${billId}`, {
-                            method: 'DELETE'
+                            method: 'DELETE'  paid: true
                         })
                         .then(response => {
                             // Check if response is okay first
                             if (!response.ok) {
-                                throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+                                throw new Error(`Server returned ${response.status}: ${response.statusText}`);ethod: 'DELETE'
                             }
                             
                             // After successful delete, create new bill with paid status
                             return fetch(`${getApiBaseUrl()}/bills`, {  // <-- UPDATED LINE HERE
-                                method: 'POST',
+                                method: 'POST',Error(`Server returned ${response.status}: ${response.statusText}`);
                                 headers: {
                                     'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(updatedBill)
-                            });
+                                },w bill with paid status
+                                body: JSON.stringify(updatedBill)urn fetch(`${getApiBaseUrl()}/bills`, {  // <-- UPDATED LINE HERE
+                            });      method: 'POST',
                         })
-                        .then(response => {
+                        .then(response => {lication/json'
                             // Check if response is okay
                             if (!response.ok) {
-                                throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+                                throw new Error(`Server returned ${response.status}: ${response.statusText}`););
                             }
                             
                             // Try to parse as JSON, but handle other content types
                             const contentType = response.headers.get('content-type');
-                            if (contentType && contentType.includes('application/json')) {
+                            if (contentType && contentType.includes('application/json')) { returned ${response.status}: ${response.statusText}`);
                                 return response.json();
                             } else {
                                 return response.text().then(text => ({
-                                    message: text || 'Bill marked as paid successfully!'
-                                }));
-                            }
+                                    message: text || 'Bill marked as paid successfully!'ntentType = response.headers.get('content-type');
+                                }));f (contentType && contentType.includes('application/json')) {
+                            }      return response.json();
                         })
-                        .then(data => {
-                            // Show success message
-                            alert(data.message || 'Bill marked as paid successfully!');
+                        .then(data => {t().then(text => ({
+                            // Show success message'
+                            alert(data.message || 'Bill marked as paid successfully!');    }));
                             
                             // Refresh bills
-                            fetchBills();
-                        })
-                        .catch(error => {
+                            fetchBills();hen(data => {
+                        })ss message
+                        .catch(error => {lly!');
                             console.error('Error marking bill as paid:', error);
-                            alert(`Error marking bill as paid: ${error.message || 'Unknown error'}. The server might be down or the bill ID might be invalid.`);
-                        });
-                    });
-                });
-                
-                // View bill details
+                            alert(`Error marking bill as paid: ${error.message || 'Unknown error'}. The server might be down or the bill ID might be invalid.`); // Refresh bills
+                        });     fetchBills();
+                    });     })
+                });        .catch(error => {
+                error('Error marking bill as paid:', error);
+                // View bill detailsmessage || 'Unknown error'}. The server might be down or the bill ID might be invalid.`);
                 document.querySelectorAll('.view-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const billId = this.getAttribute('data-id');
                         const bill = filteredBills.find(b => b.id == billId);
-                        
-                        if (bill) {
+                        s
+                        if (bill) {btn => {
                             // Populate modal with bill details
                             document.getElementById('modalBillName').textContent = bill.bill_name;
-                            document.getElementById('modalAmount').textContent = `$${parseFloat(bill.amount).toFixed(2)}`;
+                            document.getElementById('modalAmount').textContent = `$${parseFloat(bill.amount).toFixed(2)}`; billId);
                             const dueDate = new Date(bill.due_date);
                             document.getElementById('modalDueDate').textContent = dueDate.toLocaleDateString('en-US', { 
-                                year: 'numeric', 
-                                month: 'long', 
-                                day: 'numeric' 
+                                year: 'numeric', ith bill details
+                                month: 'long', ById('modalBillName').textContent = bill.bill_name;
+                                day: 'numeric' ument.getElementById('modalAmount').textContent = `$${parseFloat(bill.amount).toFixed(2)}`;
                             });
-                            document.getElementById('modalCategory').textContent = bill.category || 'Other';
-                            const statusText = {
+                            document.getElementById('modalCategory').textContent = bill.category || 'Other';yId('modalDueDate').textContent = dueDate.toLocaleDateString('en-US', { 
+                            const statusText = {, 
                                 'paid': 'Paid',
                                 'pending': 'Pending',
                                 'overdue': 'Overdue'
                             }[bill.status];
                             document.getElementById('modalStatus').innerHTML = `<span class="bill-status ${bill.status}">${statusText}</span>`;
-                            document.getElementById('modalNotes').textContent = bill.notes || 'No notes available';
+                            document.getElementById('modalNotes').textContent = bill.notes || 'No notes available';    'paid': 'Paid',
                             
                             // Show payment history if available
                             const paymentHistory = document.getElementById('paymentHistory');
-                            if (bill.payments && bill.payments.length > 0) {
-                                paymentHistory.innerHTML = '';
+                            if (bill.payments && bill.payments.length > 0) {us').innerHTML = `<span class="bill-status ${bill.status}">${statusText}</span>`;
+                                paymentHistory.innerHTML = '';textContent = bill.notes || 'No notes available';
                                 bill.payments.forEach(payment => {
                                     const li = document.createElement('li');
-                                    li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                                    const paymentDate = new Date(payment.date);
-                                    li.innerHTML = `
+                                    li.className = 'list-group-item d-flex justify-content-between align-items-center';mentHistory');
+                                    const paymentDate = new Date(payment.date);l.payments.length > 0) {
+                                    li.innerHTML = `y.innerHTML = '';
                                         <div>
                                             <strong>${paymentDate.toLocaleDateString()}</strong>
-                                            ${payment.method ? `<span class="text-muted ml-2">(${payment.method})</span>` : ''}
+                                            ${payment.method ? `<span class="text-muted ml-2">(${payment.method})</span>` : ''}me = 'list-group-item d-flex justify-content-between align-items-center';
                                         </div>
-                                        <span class="badge badge-primary badge-pill">$${parseFloat(payment.amount).toFixed(2)}</span>
+                                        <span class="badge badge-primary badge-pill">$${parseFloat(payment.amount).toFixed(2)}</span>.innerHTML = `
                                     `;
-                                    paymentHistory.appendChild(li);
-                                });
+                                    paymentHistory.appendChild(li);         <strong>${paymentDate.toLocaleDateString()}</strong>
+                                });        ${payment.method ? `<span class="text-muted ml-2">(${payment.method})</span>` : ''}
                             } else {
-                                paymentHistory.innerHTML = `
+                                paymentHistory.innerHTML = `}</span>
                                     <li class="list-group-item d-flex justify-content-between align-items-center text-muted">
-                                        No payment records found
-                                    </li>
-                                `;
-                            }
-                            
+                                        No payment records foundntHistory.appendChild(li);
+                                    </li>;
+                                `; else {
+                            }    paymentHistory.innerHTML = `
+                            ntent-between align-items-center text-muted">
                             // Show the modal (removed reference to editBillBtn)
-                            $('#billDetailsModal').modal('show');
-                        }
-                    });
-                });
-                
+                            $('#billDetailsModal').modal('show');           </li>
+                        }         `;
+                    });         }
+                });            
+                 Show the modal (removed reference to editBillBtn)
                 // Delete bill
                 document.querySelectorAll('.delete-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
@@ -1539,153 +1540,153 @@
                         const billName = this.getAttribute('data-name');
                         
                         // Set bill name in confirmation modal
-                        document.getElementById('deleteBillName').textContent = billName;
-                        
+                        document.getElementById('deleteBillName').textContent = billName;addEventListener('click', function() {
+                        e('data-id');
                         // Set up confirm delete button
                         document.getElementById('confirmDeleteBtn').setAttribute('data-id', billId);
-                        
-                        // Show confirmation modal
-                        $('#confirmDeleteModal').modal('show');
-                    });
-                });
+                        mation modal
+                        // Show confirmation modal').textContent = billName;
+                        $('#confirmDeleteModal').modal('show'); 
+                    });     // Set up confirm delete button
+                });        document.getElementById('confirmDeleteBtn').setAttribute('data-id', billId);
                 
                 // Confirm delete button
                 document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
-                    const billId = this.getAttribute('data-id');
+                    const billId = this.getAttribute('data-id');});
                     
                     // Delete bill from server
                     fetch(`${getApiBaseUrl()}/bills?id=${billId}`, {
-                        method: 'DELETE'
-                    })
+                        method: 'DELETE'nt.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+                    }).getAttribute('data-id');
                     .then(response => {
-                        // Check if response is okay first
+                        // Check if response is okay firstver
                         if (!response.ok) {
-                            throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+                            throw new Error(`Server returned ${response.status}: ${response.statusText}`);ethod: 'DELETE'
                         }
                         
                         // Try to parse as JSON, but handle other content types
                         const contentType = response.headers.get('content-type');
-                        if (contentType && contentType.includes('application/json')) {
+                        if (contentType && contentType.includes('application/json')) { returned ${response.status}: ${response.statusText}`);
                             return response.json();
                         } else {
-                            // If not JSON, get text and create a simple object
-                            return response.text().then(text => ({
-                                message: text || 'Bill deleted successfully!'
-                            }));
-                        }
-                    })
-                    .then(data => {
-                        // Hide modal
-                        $('#confirmDeleteModal').modal('hide');
+                            // If not JSON, get text and create a simple objectcontent types
+                            return response.text().then(text => ({e');
+                                message: text || 'Bill deleted successfully!'entType && contentType.includes('application/json')) {
+                            }));   return response.json();
+                        }  } else {
+                    })ot JSON, get text and create a simple object
+                    .then(data => {sponse.text().then(text => ({
+                        // Hide modalsuccessfully!'
+                        $('#confirmDeleteModal').modal('hide');    }));
                         
                         // Show success message
-                        alert(data.message || 'Bill deleted successfully!');
+                        alert(data.message || 'Bill deleted successfully!');n(data => {
                         
-                        // Refresh bills
-                        fetchBills();
-                    })
-                    .catch(error => {
+                        // Refresh billsleteModal').modal('hide');
+                        fetchBills();  
+                    })ss message
+                    .catch(error => {lly!');
                         console.error('Error deleting bill:', error);
-                        
+                        lls
                         // Hide modal
                         $('#confirmDeleteModal').modal('hide');
                         
                         // More informative error message
-                        alert(`Error deleting bill: ${error.message || 'Unknown error'}. The server might be down or the bill ID might be invalid.`);
-                    });
-                });
-            }
-
-            // Function to handle edit bill action
+                        alert(`Error deleting bill: ${error.message || 'Unknown error'}. The server might be down or the bill ID might be invalid.`); 
+                    });     // Hide modal
+                });           $('#confirmDeleteModal').modal('hide');
+            }                        
+message
+            // Function to handle edit bill action bill: ${error.message || 'Unknown error'}. The server might be down or the bill ID might be invalid.`);
             function handleEditBill(billId) {
                 // Find the bill in the filtered bills array
                 const bill = filteredBills.find(b => b.id == billId);
                 
                 if (bill) {
                     // Save the current bill to sessionStorage for use on the edit page
-                    sessionStorage.setItem('editingBill', JSON.stringify(bill));
-                    
+                    sessionStorage.setItem('editingBill', JSON.stringify(bill));ind the bill in the filtered bills array
+                    d == billId);
                     // Log action (useful for debugging)
-                    console.log(`Editing bill: ${bill.bill_name} (ID: ${billId})`);
-                    
-                    // Show feedback to user before redirecting
+                    console.log(`Editing bill: ${bill.bill_name} (ID: ${billId})`);bill) {
+                    for use on the edit page
+                    // Show feedback to user before redirectingy(bill));
                     const toastElement = document.createElement('div');
-                    toastElement.style.position = 'fixed';
-                    toastElement.style.bottom = '20px';
+                    toastElement.style.position = 'fixed';)
+                    toastElement.style.bottom = '20px';.bill_name} (ID: ${billId})`);
                     toastElement.style.left = '20px';
-                    toastElement.style.backgroundColor = 'var(--primary-color)';
-                    toastElement.style.color = 'white';
+                    toastElement.style.backgroundColor = 'var(--primary-color)';irecting
+                    toastElement.style.color = 'white';nt('div');
                     toastElement.style.padding = '10px 15px';
                     toastElement.style.borderRadius = '5px';
                     toastElement.style.zIndex = '9999';
                     toastElement.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
                     toastElement.innerHTML = `<i class="fas fa-edit mr-2"></i>Preparing to edit "${bill.bill_name}"...`;
-                    document.body.appendChild(toastElement);
+                    document.body.appendChild(toastElement);toastElement.style.padding = '10px 15px';
                     
-                    // Redirect to edit page after short delay to show the toast message
-                    setTimeout(() => {
-                        window.location.href = `edit-bill.html?id=${billId}`;
-                    }, 300);
+                    // Redirect to edit page after short delay to show the toast message.zIndex = '9999';
+                    setTimeout(() => {)';
+                        window.location.href = `edit-bill.html?id=${billId}`;ment.innerHTML = `<i class="fas fa-edit mr-2"></i>Preparing to edit "${bill.bill_name}"...`;
+                    }, 300);ment.body.appendChild(toastElement);
                 } else {
                     console.error(`Bill with ID ${billId} not found`);
-                    alert('Error: Could not find the bill to edit. Please try refreshing the page.');
-                }
-            }
+                    alert('Error: Could not find the bill to edit. Please try refreshing the page.');   setTimeout(() => {
+                }           window.location.href = `edit-bill.html?id=${billId}`;
+            }                    }, 300);
 
-            // Function to reset filters
-            window.resetFilters = function() {
+            // Function to reset filtersD ${billId} not found`);
+            window.resetFilters = function() {e try refreshing the page.');
                 document.getElementById('categoryFilter').value = 'all';
                 document.getElementById('statusFilter').value = 'all';
                 document.getElementById('sortBy').value = 'date-desc';
-                document.getElementById('searchBills').value = '';
+                document.getElementById('searchBills').value = '';unction to reset filters
                 
-                // Reset date filters to current month
+                // Reset date filters to current monthcategoryFilter').value = 'all';
                 const today = new Date();
                 const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
                 const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
                 document.getElementById('startDate').valueAsDate = firstDay;
-                document.getElementById('endDate').valueAsDate = lastDay;
-                
-                // Apply reset filters
-                applyFilters();
-            };
-
+                document.getElementById('endDate').valueAsDate = lastDay;// Reset date filters to current month
+                ();
+                // Apply reset filters= new Date(today.getFullYear(), today.getMonth(), 1);
+                applyFilters();  const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+            };                document.getElementById('startDate').valueAsDate = firstDay;
+te').valueAsDate = lastDay;
             // Function to export bills to CSV
-            function exportBillsToCSV() {
+            function exportBillsToCSV() {rs
                 // Create CSV header
                 let csv = 'Bill Name,Category,Amount,Due Date,Status\n';
                 
                 // Add each bill as a row
                 filteredBills.forEach(bill => {
                     const dueDate = new Date(bill.due_date);
-                    const formattedDate = dueDate.toLocaleDateString('en-US');
+                    const formattedDate = dueDate.toLocaleDateString('en-US');csv = 'Bill Name,Category,Amount,Due Date,Status\n';
                     
-                    // Format bill data
+                    // Format bill dataas a row
                     const row = [
-                        `"${bill.bill_name.replace(/"/g, '""')}"`,  // Escape quotes in bill name
-                        bill.category || 'Other',
+                        `"${bill.bill_name.replace(/"/g, '""')}"`,  // Escape quotes in bill name.due_date);
+                        bill.category || 'Other',ateString('en-US');
                         parseFloat(bill.amount).toFixed(2),
                         formattedDate,
-                        bill.status.charAt(0).toUpperCase() + bill.status.slice(1)  // Capitalize status
-                    ];
-                    
-                    csv += row.join(',') + '\n';
-                });
-                
+                        bill.status.charAt(0).toUpperCase() + bill.status.slice(1)  // Capitalize statusnst row = [
+                    ];    `"${bill.bill_name.replace(/"/g, '""')}"`,  // Escape quotes in bill name
+                    ,
+                    csv += row.join(',') + '\n';     parseFloat(bill.amount).toFixed(2),
+                });        formattedDate,
+                rAt(0).toUpperCase() + bill.status.slice(1)  // Capitalize status
                 // Create download link
                 const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
                 link.setAttribute('download', `bills_export_${new Date().toISOString().slice(0, 10)}.csv`);
-                document.body.appendChild(link);
-                
-                // Trigger download
-                link.click();
-                
+                document.body.appendChild(link);const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                ateObjectURL(blob);
+                // Trigger downloaddocument.createElement('a');
+                link.click();link.href = url;
+                ribute('download', `bills_export_${new Date().toISOString().slice(0, 10)}.csv`);
                 // Clean up
-                document.body.removeChild(link);
-            }
+                document.body.removeChild(link);   
+            }                // Trigger download
 
             // Debug function to inspect data loading issues
             window.debugBillsData = function() {
@@ -1694,132 +1695,138 @@
                     .then(data => {
                         console.log('--- DEBUG: BILLS DATA ---');
                         console.log('Total bills:', data.length);
-                        console.log('First 3 bills:', data.slice(0, 3));
-                        
+                        console.log('First 3 bills:', data.slice(0, 3));{getApiBaseUrl()}/bills`)
+                        n())
                         // Check for common issues
-                        const issues = [];
+                        const issues = [];ATA ---');
                         data.forEach((bill, index) => {
                             if (!bill.id) issues.push(`Bill at index ${index} has no ID`);
                             if (!bill.bill_name) issues.push(`Bill at index ${index} has no name`);
                             if (bill.amount === undefined) issues.push(`Bill at index ${index} has no amount`);
-                            if (!bill.due_date) issues.push(`Bill at index ${index} has no due date`);
-                            
+                            if (!bill.due_date) issues.push(`Bill at index ${index} has no due date`);t issues = [];
+                            x) => {
                             // Check date format
                             if (bill.due_date && isNaN(new Date(bill.due_date).getTime())) {
-                                issues.push(`Bill at index ${index} (${bill.bill_name}) has invalid date format: ${bill.due_date}`);
-                            }
-                        });
+                                issues.push(`Bill at index ${index} (${bill.bill_name}) has invalid date format: ${bill.due_date}`);f (bill.amount === undefined) issues.push(`Bill at index ${index} has no amount`);
+                            } if (!bill.due_date) issues.push(`Bill at index ${index} has no due date`);
+                        });    
                         
-                        console.log('Issues found:', issues.length > 0 ? issues : 'None');
-                        console.log('------------------------');
+                        console.log('Issues found:', issues.length > 0 ? issues : 'None');bill.due_date).getTime())) {
+                        console.log('------------------------');        issues.push(`Bill at index ${index} (${bill.bill_name}) has invalid date format: ${bill.due_date}`);
                         
                         // Show results in UI if there are issues
                         if (issues.length > 0) {
-                            alert(`Found ${issues.length} issues with your bills data. See console for details.`);
+                            alert(`Found ${issues.length} issues with your bills data. See console for details.`);log('Issues found:', issues.length > 0 ? issues : 'None');
                         } else {
                             alert('Bills data looks good! Check console for details.');
-                        }
-                    })
-                    .catch(error => {
+                        }  // Show results in UI if there are issues
+                    })ngth > 0) {
+                    .catch(error => {r bills data. See console for details.`);
                         console.error('Error in debug function:', error);
-                        alert('Error accessing bills data. See console for details.');
-                    });
-            };
+                        alert('Error accessing bills data. See console for details.');     alert('Bills data looks good! Check console for details.');
+                    });          }
+            };                    })
 
-            // Add a hidden debug button
+            // Add a hidden debug button error);
             const debugButton = document.createElement('button');
             debugButton.className = 'btn btn-sm btn-outline-secondary position-fixed';
             debugButton.style.bottom = '10px';
             debugButton.style.right = '10px';
             debugButton.style.opacity = '0.6';
             debugButton.style.zIndex = '1000';
-            debugButton.innerHTML = '<i class="fas fa-bug"></i>';
+            debugButton.innerHTML = '<i class="fas fa-bug"></i>';-outline-secondary position-fixed';
             debugButton.title = 'Debug Bills Data';
             debugButton.addEventListener('click', window.debugBillsData);
-            document.body.appendChild(debugButton);
+            document.body.appendChild(debugButton);    debugButton.style.opacity = '0.6';
         
-        // Move the updatePagination function inside the DOMContentLoaded event handler
+        // Move the updatePagination function inside the DOMContentLoaded event handler<i class="fas fa-bug"></i>';
         function updatePagination() {
             const totalPages = Math.ceil(filteredBills.length / billsPerPage);
-            const paginationControls = document.getElementById('paginationControls');
+            const paginationControls = document.getElementById('paginationControls');document.body.appendChild(debugButton);
             
-            // Clear pagination controls except first and last items (prev and next buttons)
+            // Clear pagination controls except first and last items (prev and next buttons)ContentLoaded event handler
             while (paginationControls.children.length > 2) {
-                paginationControls.removeChild(paginationControls.children[1]);
-            }
+                paginationControls.removeChild(paginationControls.children[1]);onst totalPages = Math.ceil(filteredBills.length / billsPerPage);
+            }const paginationControls = document.getElementById('paginationControls');
             
-            // Update previous button
+            // Update previous buttonxt buttons)
             const prevButton = document.getElementById('prevPage').parentElement;
-            prevButton.className = currentPage === 1 ? 'page-item disabled' : 'page-item';
+            prevButton.className = currentPage === 1 ? 'page-item disabled' : 'page-item';    paginationControls.removeChild(paginationControls.children[1]);
             
             // Update next button
             const nextButton = document.getElementById('nextPage').parentElement;
-            nextButton.className = currentPage === totalPages || totalPages === 0 ? 'page-item disabled' : 'page-item';
-            
+            nextButton.className = currentPage === totalPages || totalPages === 0 ? 'page-item disabled' : 'page-item';const prevButton = document.getElementById('prevPage').parentElement;
+            rentPage === 1 ? 'page-item disabled' : 'page-item';
             // Add page number buttons
             if (totalPages <= 5) {
-                // Show all pages if 5 or fewer
-                for (let i = 1; i <= totalPages; i++) {
+                // Show all pages if 5 or fewer'nextPage').parentElement;
+                for (let i = 1; i <= totalPages; i++) {rrentPage === totalPages || totalPages === 0 ? 'page-item disabled' : 'page-item';
                     addPageButton(i);
-                }
+                }age number buttons
             } else {
-                // Show first page, current page, and last page with ellipses
-                addPageButton(1);
+                // Show first page, current page, and last page with ellipses if 5 or fewer
+                addPageButton(1);for (let i = 1; i <= totalPages; i++) {
                 
                 if (currentPage > 2) {
-                    addEllipsis();
-                }
+                    addEllipsis();e {
+                }// Show first page, current page, and last page with ellipses
                 
                 if (currentPage !== 1 && currentPage !== totalPages) {
-                    addPageButton(currentPage);
-                }
+                    addPageButton(currentPage);f (currentPage > 2) {
+                }    addEllipsis();
                 
                 if (currentPage < totalPages - 1) {
-                    addEllipsis();
-                }
+                    addEllipsis();f (currentPage !== 1 && currentPage !== totalPages) {
+                }    addPageButton(currentPage);
                 
                 if (totalPages > 1) {
-                    addPageButton(totalPages);
-                }
-            }
+                    addPageButton(totalPages);f (currentPage < totalPages - 1) {
+                }       addEllipsis();
+            }    }
             
             // Function to add page number button
             function addPageButton(pageNum) {
                 const li = document.createElement('li');
                 li.className = pageNum === currentPage ? 'page-item active' : 'page-item';
                 
-                const a = document.createElement('a');
-                a.className = 'page-link';
-                a.href = '#';
-                a.textContent = pageNum;
+                const a = document.createElement('a'); button
+                a.className = 'page-link';utton(pageNum) {
+                a.href = '#';teElement('li');
+                a.textContent = pageNum;li.className = pageNum === currentPage ? 'page-item active' : 'page-item';
                 
-                a.addEventListener('click', function(e) {
+                a.addEventListener('click', function(e) {teElement('a');
                     e.preventDefault();
                     currentPage = pageNum;
-                    displayBills();
+                    displayBills();;
                     updatePagination();
-                });
-                
+                });a.addEventListener('click', function(e) {
+                lt();
                 li.appendChild(a);
-                paginationControls.insertBefore(li, nextButton);
-            }
+                paginationControls.insertBefore(li, nextButton);       displayBills();
+            }        updatePagination();
             
             // Function to add ellipsis
             function addEllipsis() {
-                const li = document.createElement('li');
+                const li = document.createElement('li');nextButton);
                 li.className = 'page-item disabled';
                 
                 const a = document.createElement('a');
-                a.className = 'page-link';
-                a.href = '#';
-                a.innerHTML = '&hellip;';
+                a.className = 'page-link';sis() {
+                a.href = '#';eElement('li');
+                a.innerHTML = '&hellip;';li.className = 'page-item disabled';
                 
                 li.appendChild(a);
-                paginationControls.insertBefore(li, nextButton);
-            }
-        }
-    });
+                paginationControls.insertBefore(li, nextButton);   a.className = 'page-link';
+            }       a.href = '#';
+        }         a.innerHTML = '&hellip;';
+    });            
     
+    // Remove the updatePagination function that was outside the DOMContentLoaded event handler
+    // This function doesn't have access to filteredBills and was causing the error
+    </script> }
+</body>
+
+</html>    
     // Remove the updatePagination function that was outside the DOMContentLoaded event handler
     // This function doesn't have access to filteredBills and was causing the error
     </script>

@@ -1,4 +1,7 @@
-// Enhanced Footer Component
+/**
+ * Footer component for BillTracker application
+ */
+
 document.addEventListener('DOMContentLoaded', function() {
     // Create footer element
     const footer = document.createElement('footer');
@@ -10,19 +13,15 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="footer-logo">
                 <i class="fas fa-receipt"></i> BillTracker
             </div>
-            <p>&copy; 2025 BillTracker</p>
+            <p>&copy; 2023-2024 BillTracker</p>
             <p>Designed and developed by 
                 <a href="https://www.linkedin.com/in/paramjitpatel" target="_blank" rel="noopener">
                     Paramjit Patel
-                </a> 
-                <span class="reg-number">(12312522)</span>
+                </a>
             </p>
             <div class="footer-links">
                 <a href="https://github.com/prammbhs" target="_blank" rel="noopener">
                     <i class="fab fa-github"></i> GitHub
-                </a>
-                <a href="https://paramjitpatel.me" target="_blank" rel="noopener">
-                    <i class="fas fa-globe"></i> Portfolio
                 </a>
             </div>
         </div>
@@ -72,14 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
             text-decoration: underline;
         }
         
-        .footer .reg-number {
-            background: rgba(67, 97, 238, 0.1);
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            color: var(--primary-color, #4361ee);
-        }
-        
         .footer-links {
             display: flex;
             gap: 15px;
@@ -98,13 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
             border-top-color: #333;
         }
         
-        .dark-mode .footer-logo,
         .dark-mode .footer a {
-            color: var(--secondary-color, #48bfe3);
-        }
-        
-        .dark-mode .footer .reg-number {
-            background: rgba(72, 191, 227, 0.2);
             color: var(--secondary-color, #48bfe3);
         }
         

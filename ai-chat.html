@@ -1884,7 +1884,154 @@
     <!-- Add sidebar.js script -->
     <script src="js/sidebar.js"></script>
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("DOM Content Loaded for AI Chat");
+
+        // Initialize enhanced voice system with improved handling
+        let enhancedVoice;
+        
+        function initializeVoiceSystem() {
+            if (window.EnhancedVoice) {
+                // Make sure we don't create multiple instances
+                enhancedVoice = window.EnhancedVoice.getInstance() || new EnhancedVoice();
+                console.log("Voice system initialized successfully");
+            } else {
+                console.error("EnhancedVoice class not found. Make sure voice-enhancement.js is loaded correctly");
+                // Create a simple fallback for speech
+                enhancedVoice = {
+                    speak: function(text) {
+                        console.log("Using fallback speech function");
+                        const utterance = new SpeechSynthesisUtterance(text);
+                        window.speechSynthesis.speak(utterance);
+                    },
+                    stop: function() {
+                        window.speechSynthesis.cancel();
+                    }
+                };
+            }
+            
+            // Test the voice system after initialization
+            setTimeout(testVoiceSystem, 1000);
+        }
+        
+        // Function to test if the voice system is working
+        function testVoiceSystem() {
+            console.log("Testing voice system...");
+            // Just log info about the voice, don't actually speak
+            if (enhancedVoice) {
+                console.log("Voice system available");
+                console.log("Current voice:", enhancedVoice.getCurrentVoice());
+                console.log("Available voices:", enhancedVoice.getVoices().length);
+            } else {
+                console.error("Voice system not initialized properly");
+            }
+        }
+        
+        // Enhanced speak function that handles errors
+        function speakText(text) {
+            if (!text || typeof text !== 'string' || text.trim() === '') {
+                console.warn("Cannot speak empty text");
+                return;
+            }
+            
+            console.log("Speaking text:", text.substring(0, 50) + (text.length > 50 ? "..." : ""));
+            
+            if (enhancedVoice) {
+                try {
+                    // Dispatch custom event that the UI can respond to
+                    document.dispatchEvent(new CustomEvent('speechstart'));
+                    
+                    // Call the enhanced speak function
+                    enhancedVoice.speak(text);
+                } catch (error) {
+                    console.error("Error speaking text:", error);
+                    
+                    // Fallback to basic speech synthesis if enhanced version fails
+                    try {
+                        const utterance = new SpeechSynthesisUtterance(text);
+                        window.speechSynthesis.speak(utterance);
+                    } catch (fallbackError) {
+                        console.error("Fallback speech also failed:", fallbackError);
+                    }
+                }
+            } else {
+                // Direct fallback if enhancedVoice isn't available
+                try {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    window.speechSynthesis.speak(utterance);
+                } catch (error) {
+                    console.error("Basic speech failed:", error);
+                }
+            }
+        }
+        
+        function stopSpeaking() {
+            if (enhancedVoice) {
+                enhancedVoice.stop();
+            } else {
+                window.speechSynthesis.cancel();
+            }
+            
+            // Update UI
+            document.querySelectorAll('.stop-btn').forEach(btn => btn.style.display = 'none');
+            document.querySelectorAll('.play-btn').forEach(btn => btn.style.display = 'inline-flex');
+        }
+        
+        // Modify the addReadAloudButton function for better reliability
+        function addReadAloudButton(messageDiv) {
+            // Only add to bot messages
+            if (!messageDiv.classList.contains('bot-message')) return;
+            
+            // Add a play button if speech synthesis is supported
+            if ('speechSynthesis' in window) {
+                // Check if button already exists
+                if (messageDiv.querySelector('.speech-output-controls')) {
+                    return;
+                }
+                
+                const messageContent = messageDiv.querySelector('.message-content').textContent;
+                const speechControls = document.createElement('div');
+                speechControls.className = 'speech-output-controls';
+                
+                const playButton = document.createElement('button');
+                playButton.className = 'play-btn';
+                playButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+                playButton.title = 'Read aloud';
+                
+                // Add stop button
+                const stopButton = document.createElement('button');
+                stopButton.className = 'stop-btn ml-2';
+                stopButton.style.display = 'none';
+                stopButton.innerHTML = '<i class="fas fa-stop"></i>';
+                stopButton.title = 'Stop reading';
+                
+                playButton.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    console.log("Play button clicked for message:", messageContent.substring(0, 30) + "...");
+                    speakText(messageContent);
+                    playButton.style.display = 'none';
+                    stopButton.style.display = 'inline-flex';
+                });
+                
+                stopButton.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    console.log("Stop button clicked");
+                    stopSpeaking();
+                });
+                
+                speechControls.appendChild(playButton);
+                speechControls.appendChild(stopButton);
+                messageDiv.appendChild(speechControls);
+            }
+        }
+        
+        // Initialize the voice system
+        initializeVoiceSystem();
+        
         // ...existing code...
-    </script>
+    });
+</script>
 </body>
 </html>

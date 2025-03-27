@@ -14,7 +14,7 @@ class EnhancedVoice {
         this.voice = null;
         this.rate = 1.0;
         this.pitch = 1.0;
-        this.volume = 1.0;  // Default volume
+        this.volume = 2.0;  // Increased default volume by 100%
         this.speaking = false;
         this.voicePreference = localStorage.getItem('preferredVoice');
         this.availableVoices = [];
@@ -176,7 +176,10 @@ class EnhancedVoice {
     }
     
     speak(text) {
-        if (!this.synthesis || !text) return;
+        if (!this.synthesis || !text) {
+            console.error("Cannot speak: SpeechSynthesis not available or text is empty");
+            return;
+        }
         
         // Ensure we're using the correct voice (preferably Aria)
         // If current voice is not Aria, try to find an Aria voice
@@ -188,79 +191,110 @@ class EnhancedVoice {
             }
         }
         
+        // Force reload voices if we don't have any available
+        if (!this.voice && this.availableVoices.length === 0) {
+            console.log("No voice selected or no voices available, trying to reload voices");
+            this.availableVoices = this.synthesis.getVoices();
+            this.loadVoices();
+        }
+        
         console.log("Speaking with voice:", this.voice ? this.voice.name : "default");
         
-        // Cancel any ongoing speech
-        this.synthesis.cancel();
-        
-        // Process text to sound more natural
-        const processedText = this.processTextForSpeech(text);
-        
-        // Split into sentences for more natural pauses
-        const sentences = this.splitIntoSentences(processedText);
-        
-        // Track that we're speaking
-        this.speaking = true;
-        
-        // Dispatch speech start event
-        const startEvent = new CustomEvent('speechstart');
-        document.dispatchEvent(startEvent);
-        
-        // Force volume level to be set properly - convert to numeric value
-        const volumeLevel = Math.min(Math.max(parseFloat(this.volume) || 1.0, 0.1), 1.0);
-        console.log(`Using volume level: ${volumeLevel}`);
-        
-        sentences.forEach((sentence, index) => {
-            if (!sentence.trim()) return;
+        try {
+            // Fix for Chrome issue where synthesis gets stuck
+            if (this.speaking) {
+                this.synthesis.cancel();
+                console.log("Cancelled previous speech");
+            }
             
-            const utterance = new SpeechSynthesisUtterance(sentence);
+            // Process text to sound more natural
+            const processedText = this.processTextForSpeech(text);
+            
+            // Split into sentences for more natural pauses
+            const sentences = this.splitIntoSentences(processedText);
+            
+            // Track that we're speaking
+            this.speaking = true;
+            
+            // Dispatch speech start event
+            const startEvent = new CustomEvent('speechstart');
+            document.dispatchEvent(startEvent);
+            
+            // Force volume level to be set properly - convert to numeric value
+            // Remove upper limit to allow volume boost
+            const volumeLevel = Math.max(parseFloat(this.volume) || 1.0, 0.1);
+            console.log(`Using volume level: ${volumeLevel}`);
+            
+            // Use a simpler approach - speak the entire text at once to avoid synchronization issues
+            const utterance = new SpeechSynthesisUtterance(processedText);
             
             // Set voice and parameters
             if (this.voice) {
                 utterance.voice = this.voice;
                 console.log("Using voice:", this.voice.name);
+            } else {
+                console.warn("No voice selected, using browser default");
             }
             
             // Ensure numeric values for all speech parameters
             utterance.rate = parseFloat(this.rate) || 1.0;
             utterance.pitch = parseFloat(this.pitch) || 1.0;
-            
-            // Apply volume with special handling for Microsoft Aria
             utterance.volume = volumeLevel;
             
             // Special handling for Microsoft Aria voices which may need higher volume
             if (this.voice && this.voice.name.includes("Aria")) {
-                // Compensate for Aria's sometimes lower volume
-                const ariaVolumeBoost = Math.min(volumeLevel * 1.25, 1.0);
+                // Increase Aria's volume boost to 2x
+                const ariaVolumeBoost = volumeLevel * 2.0;
                 utterance.volume = ariaVolumeBoost;
                 console.log(`Applied Aria volume boost: ${ariaVolumeBoost}`);
             }
             
             console.log(`Speech settings: rate=${utterance.rate}, pitch=${utterance.pitch}, volume=${utterance.volume}`);
             
-            // Add slight pause between sentences
-            utterance.onend = () => {
-                if (index < sentences.length - 1) {
-                    setTimeout(() => {}, 250);
-                } else {
-                    this.speaking = false;
-                    
-                    // Dispatch speech end event
-                    const endEvent = new CustomEvent('speechend');
-                    document.dispatchEvent(endEvent);
-                }
-            };
-            
+            // Set up event handlers
             utterance.onstart = () => {
                 this.speaking = true;
-                
-                // Debug: verify volume setting is applied
-                console.log(`Speech started with volume: ${utterance.volume}`);
+                console.log(`Speech started with voice: ${utterance.voice ? utterance.voice.name : "default"}`);
             };
             
-            // Add to speech queue
+            utterance.onend = () => {
+                console.log("Speech ended");
+                this.speaking = false;
+                
+                // Dispatch speech end event
+                const endEvent = new CustomEvent('speechend');
+                document.dispatchEvent(endEvent);
+            };
+            
+            utterance.onerror = (event) => {
+                console.error("Speech error:", event.error);
+                this.speaking = false;
+                
+                // Dispatch speech end event
+                const endEvent = new CustomEvent('speechend');
+                document.dispatchEvent(endEvent);
+            };
+            
+            // Speak the text
             this.synthesis.speak(utterance);
-        });
+            
+            // Chrome fix - refresh the speech synthesis instance if nothing happens
+            setTimeout(() => {
+                if (this.speaking && !this.synthesis.speaking) {
+                    console.log("Speech synthesis not speaking even though it should be - trying again");
+                    this.synthesis.cancel();
+                    this.synthesis.speak(utterance);
+                }
+            }, 500);
+            
+        } catch (error) {
+            console.error("Error in speak function:", error);
+            this.speaking = false;
+            
+            // Dispatch speech end event
+            const endEvent = new CustomEvent('speechend');
+            document.dispatchEvent(endEvent);
+        }
     }
     
     processTextForSpeech(text) {
@@ -366,21 +400,22 @@ class EnhancedVoice {
                 const parsed = JSON.parse(settings);
                 this.rate = parseFloat(parsed.rate) || 1.0;
                 this.pitch = parseFloat(parsed.pitch) || 1.0;
-                this.volume = parseFloat(parsed.volume) || 1.0;
+                // Double the loaded volume for 100% increase
+                this.volume = parseFloat(parsed.volume) * 2.0 || 2.0;
                 console.log(`Loaded settings: rate=${this.rate}, pitch=${this.pitch}, volume=${this.volume}`);
             } else {
-                // If no settings are saved, use defaults with higher volume for Aria
+                // If no settings are saved, use defaults with higher volume
                 this.rate = 1.0;
                 this.pitch = 1.0;
-                this.volume = 1.0;
+                this.volume = 2.0;  // Default to 2.0 for 100% boost
                 console.log("No saved settings found, using defaults");
             }
         } catch (e) {
             console.error('Error parsing voice settings', e);
-            // Reset to defaults
+            // Reset to defaults with higher volume
             this.rate = 1.0;
             this.pitch = 1.0;
-            this.volume = 1.0;
+            this.volume = 2.0;  // Default to 2.0 for 100% boost
         }
     }
 }
@@ -432,14 +467,15 @@ if (window.speechSynthesis) {
                 console.log(`Refreshing voices after ${delay}ms delay`);
                 window._enhancedVoiceInstance.loadVoices();
                 
-                // Make sure volume is properly set
+                // Make sure volume is properly set with 100% boost
                 const settings = localStorage.getItem('voiceSettings');
                 if (settings) {
                     try {
                         const parsed = JSON.parse(settings);
                         if (parsed.volume) {
-                            window._enhancedVoiceInstance.volume = parseFloat(parsed.volume);
-                            console.log(`Restored volume setting: ${window._enhancedVoiceInstance.volume}`);
+                            // Apply 2x volume boost
+                            window._enhancedVoiceInstance.volume = parseFloat(parsed.volume) * 2.0;
+                            console.log(`Restored volume setting with boost: ${window._enhancedVoiceInstance.volume}`);
                         }
                     } catch (e) {
                         console.error("Error restoring volume setting", e);
@@ -448,4 +484,33 @@ if (window.speechSynthesis) {
             }
         }, delay);
     });
+}
+
+// Force immediate voice loading
+if (window.speechSynthesis) {
+    console.log("Forcing immediate voice loading");
+    const voices = window.speechSynthesis.getVoices();
+    console.log(`Immediate voice check: found ${voices.length} voices`);
+    
+    // Chrome needs a bit of time before voices are truly available
+    setTimeout(() => {
+        if (window._enhancedVoiceInstance) {
+            window._enhancedVoiceInstance.loadVoices();
+        }
+    }, 100);
+}
+
+// Browser-specific fixes
+if (window.speechSynthesis) {
+    // Fix for Chrome cutting off speech
+    const chromeWorkaround = () => {
+        if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.pause();
+            window.speechSynthesis.resume();
+            setTimeout(chromeWorkaround, 10000);
+        }
+    };
+    
+    // Start the chrome workaround
+    setTimeout(chromeWorkaround, 10000);
 }
